@@ -1,8 +1,8 @@
 <script>
     var fnSubmitLogin = function () {
         loadingImg('loading', 'play');
-        var uri = _config_api_base_url + '/generate-token';
-        var type = 'POST';
+        var uri = _config_api_base_url + '/generate-token-user';
+        var type = 'GET';
         var formdata = {
             username: $('input[name="username"]').val(),
             password: Base64.encode($('input[name="password"]').val()),
