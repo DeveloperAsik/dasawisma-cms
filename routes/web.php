@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
   | contains the "web" middleware group. Now create something great!
   |
  */
-Route::get('/', 'Backend\Settings\UserController@dashboard')->name('backend');
+Route::get('/', 'Backend\Settings\UserController@login')->name('backend');
 
 Route::post('/save-token', 'Backend\Settings\UserController@save_token')->name('save-token');
 /*
