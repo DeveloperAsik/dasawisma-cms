@@ -170,11 +170,11 @@
                     }
                 });
                 var formdata = [];
-                var uri = 'https://api.orenoproject.local/api/generate-token-access/';
-                var type = 'POST';
-                var res = fnAjaxSend(formdata, uri, type);
-                console.log('%c data dump test : ', 'color:red; font-size:22px;');
-                console.log(res);
+                //var uri = 'https://api.orenoproject.local/api/generate-token-access/';
+                //var type = 'POST';
+                //var res = fnAjaxSend(formdata, uri, type);
+                //console.log('%c data dump test : ', 'color:red; font-size:22px;');
+                //console.log(res);
             }
         };
 
