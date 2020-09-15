@@ -19,13 +19,6 @@
     <div class="col-md-12">
         <!-- Begin: life time stats -->
         <div class="portlet light portlet-fit portlet-datatable bordered">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject font-dark sbold uppercase">{view-header-title}</span>
-                    <small>logged in required</small>
-                </div>
-            </div>
             <div class="portlet-body">
                 <div class="portlet blue box">
                     <div class="portlet-title">
@@ -124,22 +117,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="scroller" style="height:400px" data-always-visible="1" data-rail-visible1="1">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="btn-group-vertical" role="group" aria-label="First group">
-                                    <button type="button" class="btn btn-secondary" data-type="view">View</button>
-                                    <button type="button" class="btn btn-secondary" data-type="add">Add</button>
-                                    <button type="button" class="btn btn-secondary" data-type="edit">Edit</button>
-                                    <button type="button" class="btn btn-secondary" data-type="remove">Remove</button>
-                                    <button type="button" class="btn btn-secondary" data-type="delete">Delete</button>
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <div id="resModPop"></div>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
                 <div class="modal-footer">
                     <input type="text" name="frm_add_edit_id" hidden />
@@ -147,7 +124,7 @@
                     <input type="text" name="frm_add_edit_module_id" hidden />
                     <input type="text" name="frm_add_edit_level" hidden />
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                    <button type="submit" class="btn btn-secondary" value="submit" id="submit" disabled="">Submit</button>
+                    <button type="submit" class="btn btn-secondary" value="submit" id="submit">Submit</button>
                 </div>
             </form>
         </div>

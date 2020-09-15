@@ -9,16 +9,16 @@
             </li>
             <?php if (isset($_menu_backend) && !empty($_menu_backend)): ?>
                 <?php foreach ($_menu_backend AS $keyword => $values): ?>
-                    <li>
+                    <li class="<?php echo ($values['is_open'] == 1) ? 'open' : ''; ?>">
                         <a href="<?php echo $_config_base_url . '/' . $values['href']; ?>">
                             <i class="icon-basket"></i>
                             <span class="title"><?php echo $values['text']; ?></span>
                             <?php if (isset($values['nodes']) && !empty($values['nodes'])): ?>
-                                <span class="arrow "></span>
+                                <span class="arrow <?php echo ($values['is_open'] == 1) ? 'open' : '';?>"></span>
                             <?php endif; ?>
                         </a>
                         <?php if (isset($values['nodes']) && !empty($values['nodes'])): ?>
-                            <ul class="sub-menu">
+                            <ul class="sub-menu" <?php echo ($values['is_open'] == 1) ? 'style="display:block !important"' : '';?>>
                                 <?php foreach ($values['nodes'] AS $key => $val): ?>
                                     <li>
                                         <a href="<?php echo $_config_base_url . '/' . $val['href']; ?>">

@@ -67,7 +67,7 @@
                             $('.modal-title').html('Update Exist Group');
                             var status_ = $(this).hasClass('disabled');
                             var id = $('input.select_tr:checkbox:checked').attr('data-id');
-                            if (status_ === 0) {
+                            if (status_ == 0) {
                                 var formdata = {
                                     id: Base64.encode(id)
                                 };
@@ -99,7 +99,7 @@
 
                         case 'remove':
                             bootbox.confirm("Are you sure to remove this id?", function (result) {
-                                if (result === true) {
+                                if (result == true) {
                                     var uri = _config_base_url + '/location/country/remove';
                                     if (count > 1) {
                                         var ids = [];
@@ -122,7 +122,7 @@
 
                         case 'delete':
                             bootbox.confirm("Are you sure to delete this id?", function (result) {
-                                if (result === true) {
+                                if (result == true) {
                                     var uri = _config_base_url + '/location/country/delete';
                                     if (count > 1) {
                                         id = [];

@@ -51,7 +51,7 @@
 <?php else: ?>
         var _config_img_url = '';
 <?php endif; ?>
-<?php if (isset($_path_json) && !empty($_path_json)) : ?>
+<?php  if (isset($_path_json) && !empty($_path_json)) : ?>
         var _path_json = '<?php echo $_path_json; ?>';
 <?php else: ?>
         var _path_json = '';

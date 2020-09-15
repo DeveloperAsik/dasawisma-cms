@@ -56,6 +56,7 @@ class Variables_Library {
         $path_view_js = $config['_config_classPath'] . '.' . $config['_config_className'] . '.' . $config['_config_methodName'] . '_js';
         $path_view_html = $config['_config_classPath'] . '.' . $config['_config_className'] . '.' . $config['_config_methodName'] . '_html';
         return ([
+            '_path_assets' => url('/') . '/assets',
             '_path_css' => url('/') . '/assets/css',
             '_path_js' => url('/') . '/assets/js',
             '_path_images' => url('/') . '/assets/images',

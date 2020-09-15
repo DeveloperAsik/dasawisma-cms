@@ -123,39 +123,7 @@
         });
     };
 
-    var loadingImg = function (el, act, opt) {
-        if (!el)
-            el = 'loading';
-
-        if (!opt)
-            opt = 'Amani_Mgeni/lf30_H8JIIY';
-
-        var animation = bodymovin.loadAnimation({
-            container: document.getElementById(el), // Required
-            path: _config_base_url + '/lottie/' + opt + '.json', // Required
-            renderer: 'svg', // Required
-            loop: true, // Optional
-            autoplay: true, // Optional
-            name: "Loading cuy... sabar ye", // Name for future reference. Optional.
-            rendererSettings: {
-                preserveAspectRatio: 'xMinYMin slice', // Supports the same options as the svg element's preserveAspectRatio property
-                clearCanvas: false,
-                progressiveLoad: true, // Boolean, only svg renderer, loads dom elements when needed. Might speed up initialization for large number of elements.
-                hideOnTransparent: false, //Boolean, only svg renderer, hides elements when opacity reaches 0 (defaults to true)
-            }
-        });
-
-        if (act === 'play') {
-            $('#loading-lottie').show();
-            $('#' + el).show();
-            animation.play();
-        } else if (act === 'destroy') {
-            $('#loading-lottie').hide();
-            animation.destroy();
-            $('#' + el).hide();
-        }
-    };
-
+    
     var GlobalAjax = function () {
         return {
             //main function to initiate the module

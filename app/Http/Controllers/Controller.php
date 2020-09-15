@@ -6,19 +6,16 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
 use App\Http\Libraries\Session_Library AS SesLibrary;
+use App\Http\Libraries\HttpRequest_Library AS HttpReqLibrary;
 use App\Http\Libraries\Tools_Library AS ToolsLibrary;
-use App\Http\Libraries\Auth AS AuthLibrary;
-
 //load table model
 use App\Model\Tbl_menus;
 use App\Model\Tbl_modules;
-
-use Redirect;
 use View;
+
 class Controller extends BaseController {
 
     use AuthorizesRequests,
@@ -68,19 +65,31 @@ class Controller extends BaseController {
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
-        //if (!SesLibrary::_get('_token_access') || SesLibrary::_get('_token_access') == null) {
-        //    SesLibrary::_set('_token_access', AuthLibrary::set_token_access(SesLibrary::_get('_uuid')));
-        //}
         if (SesLibrary::_get('_is_logged_in')) {
             View::share('_is_logged_in', SesLibrary::_get('_is_logged_in'));
         }
+
+        $route_exist = \Request::route()->getName();
         if (SesLibrary::_get('_token')) {
             View::share('_token', SesLibrary::_get('_token'));
+            $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/is-logged-in';
+            $data = array('token' => SesLibrary::_get('_token'));
+            $method = 'GET';
+            $is_logged_in = HttpReqLibrary::run($uri, $data, $method);
+            if ($is_logged_in->status == 200 && $is_logged_in->data->logged_in == false) {
+                if ($route_exist != 'login') {
+                    ToolsLibrary::setRedirect($this->_config_base_url . '/login');
+                }
+            } else {
+                if ($route_exist == 'login') {
+                    ToolsLibrary::setRedirect($this->_config_base_url . '/dashboard');
+                }
+            }
+        } else {
+            if ($route_exist != 'login') {
+                ToolsLibrary::setRedirect($this->_config_base_url . '/login');
+            }
         }
-        //$auth = AuthLibrary::verify_group_permission(\Request::route()->getName());
-        //if($auth['status'] == 404){            
-        //    ToolsLibrary::setRedirect($this->_config_base_url . '/login');
-        //}
     }
 
     public function initMenu($post = array(), $return = 'json') {
@@ -90,23 +99,23 @@ class Controller extends BaseController {
             $name = $post['module_name'];
             $res = array();
             $Tbl_menus = new Tbl_menus();
-            $menu_1 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.level' => '= "1"', 'a.module_id' => '= "' . $id . '"', 'a.is_logged_in' => '= "' . $logged . '"'))));
+            $menu_1 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= 1', 'a.module_id' => '= "' . $id . '"', 'a.is_logged_in' => '= "' . $logged . '"'))));
             $arr1 = array();
             if (isset($menu_1) && !empty($menu_1)) {
                 foreach ($menu_1 AS $keyword => $values) {
-                    $menu_2 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.level' => '= "2"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values->id . '"'))));
+                    $menu_2 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "2"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values->id . '"'))));
                     $arr2 = array();
                     if (isset($menu_2) && !empty($menu_2)) {
                         foreach ($menu_2 AS $keyword2 => $values2) {
-                            $menu_3 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.level' => '= "3"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values2->id . '"'))));
+                            $menu_3 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "3"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values2->id . '"'))));
                             $arr3 = array();
                             if (isset($menu_3) && !empty($menu_3)) {
                                 foreach ($menu_3 AS $keyword3 => $values3) {
-                                    $menu_4 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.level' => '= "4"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values3->id . '"'))));
+                                    $menu_4 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "4"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values3->id . '"'))));
                                     $arr4 = array();
                                     if (isset($menu_4) && !empty($menu_4)) {
                                         foreach ($menu_4 AS $keyword4 => $values4) {
-                                            $menu_5 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.level' => '= "5"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values4->id . '"'))));
+                                            $menu_5 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "5"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values4->id . '"'))));
                                             $arr5 = array();
                                             if (isset($menu_5) && !empty($menu_5)) {
                                                 foreach ($menu_5 AS $keyword5 => $values5) {
@@ -234,11 +243,11 @@ class Controller extends BaseController {
                 'parent_name' => '',
                 'module_id' => $id,
                 'module_name' => $name,
-                'is_active' => "1",
-                'is_logged_in' => "1",
-                'is_cms' => "1",
-                'is_open' => "1",
-                'is_badge' => "1",
+                'is_active' => 1,
+                'is_logged_in' => 1,
+                'is_cms' => 1,
+                'is_open' => 1,
+                'is_badge' => 1,
                 'desc' => '-',
                 'nodes' => $arr1
             );
@@ -268,16 +277,16 @@ class Controller extends BaseController {
         $res = array();
         if ($id != null) {
             $Tbl_menus = new Tbl_menus();
-            $res = $Tbl_menus->find('first', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.is_cms' => '= "1"', 'a.id' => '= "' . $id . '"'))));
+            $res = $Tbl_menus->find('first', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.id' => '= "' . $id . '"'))));
         }
         return $res;
     }
-    
+
     protected function get_module($id = null) {
         $res = array();
         if ($id != null) {
             $Tbl_modules = new Tbl_modules();
-            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.id' => '= "' . $id . '"'))));
+            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.id' => '= ' . $id ))));
         }
         return $res;
     }

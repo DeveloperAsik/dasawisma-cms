@@ -21,6 +21,7 @@ use App\Model\Tbl_user_tokens;
 use App\Model\Tbl_users;
 use App\Model\Tbl_user_groups;
 use App\Model\Tbl_groups;
+use App\Model\Tbl_abouts;
 
 /**
  * Description of UserController
@@ -37,13 +38,25 @@ class UserController extends Controller {
     }
 
     public function logout() {
-        Auth::session_data_clear(Session_Library::_get('_user_logged_in'));
+        Auth::session_data_clear();
         Session_Library::_destroy();
         header("Location: " . $this->_config_base_url . '/login');
     }
 
     public function dashboard() {
         $data['title_for_layout'] = 'welcome to orenoproject dashboard';
+        $Tbl_abouts = new Tbl_abouts();
+        $abouts = $Tbl_abouts->find('first', array(
+            'fields' => 'all',
+            'table_name' => 'tbl_abouts',
+            'conditions' => array(
+                'where' => array(
+                    'a.is_active' => '= "' . 1 . '"'
+                )
+            )
+                )
+        );
+        $data['_about'] = $abouts;
         return view($this->_config_path_layout . 'Metronic.index', $data);
     }
 

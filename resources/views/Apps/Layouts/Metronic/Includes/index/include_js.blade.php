@@ -116,7 +116,7 @@
 <!-- load js lib / class / library from controller start here -->
 <?php if (isset($load_js) && !empty($load_js)) : ?>
     <?php foreach ($load_js AS $key => $values) : ?>
-        <script src="<?php echo $_path_templates . $values ?>" type="text/javascript"></script>
+        <script src="<?php echo $_path_assets . $values ?>" type="text/javascript"></script>
     <?php endforeach; ?>
 <?php endif; ?>
 <!-- load js lib / class / library from controller end here -->

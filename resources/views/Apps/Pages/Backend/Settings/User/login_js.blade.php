@@ -4,13 +4,14 @@
         var uri = _config_api_base_url + '/generate-token-user';
         var type = 'GET';
         var formdata = {
+            deviceid: _app_uuid,
             username: $('input[name="username"]').val(),
             password: Base64.encode($('input[name="password"]').val())
         };
-        var response = fnAjaxSend(formdata, uri, type, {'deviceid': _app_uuid}, false);
+        var response = fnAjaxSend(formdata, uri, type, {}, false);
         if (response.responseJSON.status === 200) {
             fnToaStr(response.responseJSON.message, 'success', {timeOut: 2000});
-            var res = fnAjaxSend({token: response.responseJSON.data.token}, _config_api_base_url + '/auth/save-token', 'POST', {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
+            var res = fnAjaxSend({token: response.responseJSON.data.token}, _config_base_url + '/save-token', 'POST', {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
             if (res.status === 200) {
                 setTimeout(function () {
                     loadingImg('loading', 'destroy');

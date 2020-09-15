@@ -9,13 +9,12 @@
 namespace App\Http\Controllers\Backend\Master;
 
 use App\Http\Controllers\Controller;
-
 /**
- * Description of CountryController
+ * Description of FamilyController
  *
  * @author root
  */
-class CountryController extends Controller {
+class FamilyController extends Controller {
 
     //put your code here
     public function view() {
@@ -55,3 +54,4 @@ class CountryController extends Controller {
     }
 
 }
+

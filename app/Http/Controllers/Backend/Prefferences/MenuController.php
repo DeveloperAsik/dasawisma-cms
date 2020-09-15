@@ -25,11 +25,11 @@ class MenuController extends Controller {
         $data['modules'] = $Tbl_modules->find('all', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= "1"'))));
 
         $css_files = array(
-            'bootstrap/treeview/dist/bootstrap-treeview.min.css'
+            '/libs/bootstrap/treeview/dist/bootstrap-treeview.min.css'
         );
         $this->load_css($css_files);
         $js_files = array(
-            'bootstrap/treeview/dist/bootstrap-treeview.min.js'
+            '/libs/bootstrap/treeview/dist/bootstrap-treeview.min.js'
         );
         $this->load_js($js_files);
         $data['menu_actions'] = ['view', 'add', 'edit', 'remove', 'delete'];

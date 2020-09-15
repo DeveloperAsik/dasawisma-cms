@@ -23,12 +23,20 @@ class Auth {
 
     public static function set_token_access() {
         if (SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
-            $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/api/generate-token-access';
+            $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/generate-token-access';
             $data = array('device_id' => SesLibrary::_get('_uuid'));
             $method = 'POST';
+            debug($data);
             $token = HttpReqLibrary::run($uri, $data, $method);
             debug($token);
         }
+    }
+
+    public static function session_data_clear($data = array()) {
+        $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/drop-user-session';
+        $data = array('token' => SesLibrary::_get('_token'));
+        $method = 'GET';
+        $token = HttpReqLibrary::run($uri, $data, $method);
     }
 
 }

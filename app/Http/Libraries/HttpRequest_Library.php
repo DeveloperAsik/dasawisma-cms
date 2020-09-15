@@ -60,7 +60,7 @@ class HttpRequest_Library {
         if ($err) {
             return $err;
         } else {
-            return $response;
+            return json_decode($response);
         }
     }
 
