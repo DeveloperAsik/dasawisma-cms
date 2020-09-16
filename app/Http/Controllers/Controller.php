@@ -81,7 +81,7 @@ class Controller extends BaseController {
                     ToolsLibrary::setRedirect($this->_config_base_url . '/login');
                 }
             } else {
-                if ($route_exist == 'login' || $route_exist == '/') {
+                if ($route_exist == 'login' || $route_exist == 'backend') {
                     ToolsLibrary::setRedirect($this->_config_base_url . '/dashboard');
                 }
             }
@@ -99,7 +99,7 @@ class Controller extends BaseController {
             $name = $post['module_name'];
             $res = array();
             $Tbl_menus = new Tbl_menus();
-            $menu_1 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= 1', 'a.module_id' => '= "' . $id . '"', 'a.is_logged_in' => '= "' . $logged . '"'))));
+            $menu_1 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= 1', 'a.module_id' => '= "' . $id . '"', 'a.is_logged_in' => '= "' . $logged . '"'))));
             $arr1 = array();
             if (isset($menu_1) && !empty($menu_1)) {
                 foreach ($menu_1 AS $keyword => $values) {
@@ -286,7 +286,7 @@ class Controller extends BaseController {
         $res = array();
         if ($id != null) {
             $Tbl_modules = new Tbl_modules();
-            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.id' => '= ' . $id ))));
+            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.id' => '= ' . $id))));
         }
         return $res;
     }
