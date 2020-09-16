@@ -11,18 +11,18 @@
                 <?php foreach ($_menu_backend AS $keyword => $values): ?>
                     <li class="<?php echo ($values['is_open'] == 1) ? 'open' : ''; ?>">
                         <a href="<?php echo $_config_base_url . '/' . $values['href']; ?>">
-                            <i class="icon-basket"></i>
+                            <i class="<?php echo ($values['icon']) ? $values['icon'] : '' ?>"></i>
                             <span class="title"><?php echo $values['text']; ?></span>
                             <?php if (isset($values['nodes']) && !empty($values['nodes'])): ?>
-                                <span class="arrow <?php echo ($values['is_open'] == 1) ? 'open' : '';?>"></span>
+                                <span class="arrow <?php echo ($values['is_open'] == 1) ? 'open' : ''; ?>"></span>
                             <?php endif; ?>
                         </a>
                         <?php if (isset($values['nodes']) && !empty($values['nodes'])): ?>
-                            <ul class="sub-menu" <?php echo ($values['is_open'] == 1) ? 'style="display:block !important"' : '';?>>
+                            <ul class="sub-menu" <?php echo ($values['is_open'] == 1) ? 'style="display:block !important"' : ''; ?>>
                                 <?php foreach ($values['nodes'] AS $key => $val): ?>
                                     <li>
                                         <a href="<?php echo $_config_base_url . '/' . $val['href']; ?>">
-                                            <i class="icon-basket"></i>
+                                            <i class="<?php echo ($val['icon']) ? $val['icon'] : '' ?>"></i>
                                             <span class="title"><?php echo $val['text']; ?></span>
                                             <?php if (isset($val['nodes']) && !empty($val['nodes'])): ?>
                                                 <span class="arrow "></span>
@@ -33,7 +33,7 @@
                                                 <?php foreach ($val['nodes'] AS $k => $v): ?>
                                                     <li>
                                                         <a href="<?php echo $_config_base_url . '/' . $v['href']; ?>">
-                                                            <i class="icon-basket"></i>
+                                                            <i class="<?php echo ($v['icon']) ? $v['icon'] : '' ?>"></i>
                                                             <span class="title"><?php echo $v['text']; ?></span>
                                                             <?php if (isset($v['nodes']) && !empty($v['nodes'])): ?>
                                                                 <span class="arrow "></span>

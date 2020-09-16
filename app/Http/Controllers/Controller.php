@@ -81,7 +81,7 @@ class Controller extends BaseController {
                     ToolsLibrary::setRedirect($this->_config_base_url . '/login');
                 }
             } else {
-                if ($route_exist == 'login') {
+                if ($route_exist == 'login' || $route_exist == '/') {
                     ToolsLibrary::setRedirect($this->_config_base_url . '/dashboard');
                 }
             }
