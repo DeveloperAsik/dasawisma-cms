@@ -60,6 +60,9 @@
     };
 
     var fnGenerateForm = function (data, el) {
+        if (data.id) {
+            $('input[name="frm_add_edit_id"]').val(data.id);
+        }
         var frm_add_edit_status = '0';
         var frm_add_edit_logged = '0';
         var frm_add_edit_cms = '0';
@@ -465,22 +468,22 @@
                     var _open = '';
                     var _badge = '';
                     if (id) {
-                        uri = _config_api_base_url + '/update/menu';
+                        uri = _config_api_base_url + '/prefferences/menu/update';
                         module_id = parseInt($('input[name="frm_add_edit_module_id"]').val());
                         parent_id = parseInt($('input[name="frm_add_edit_parent_id"]').val());
                         parent_level = parseInt($('input[name="frm_add_edit_level"]').val());
-                        name = $('input[name="frm_edit_name"]').val();
-                        path = $('input[name="frm_edit_path"]').val();
-                        rank = $('input[name="frm_edit_rank"]').val();
-                        icon = $('#icon_edit').val();
-                        description = $('textarea[name="frm_edit_description"]').val();
-                        _status = $("input[name='frm_edit_status']").bootstrapSwitch('state');
-                        _logged = $("input[name='frm_edit_logged']").bootstrapSwitch('state');
-                        _cms = $("input[name='frm_edit_cms']").bootstrapSwitch('state');
-                        _open = $("input[name='frm_edit_open']").bootstrapSwitch('state');
-                        _badge = $("input[name='frm_edit_badge']").bootstrapSwitch('state');
+                        name = $('input[name="frm_view_name"]').val();
+                        path = $('input[name="frm_view_path"]').val();
+                        rank = $('input[name="frm_view_rank"]').val();
+                        icon = $('#icon_view').val();
+                        description = $('textarea[name="frm_view_description"]').val();
+                        _status = $("input[name='frm_view_status']").bootstrapSwitch('state');
+                        _logged = $("input[name='frm_view_logged']").bootstrapSwitch('state');
+                        _cms = $("input[name='frm_view_cms']").bootstrapSwitch('state');
+                        _open = $("input[name='frm_view_open']").bootstrapSwitch('state');
+                        _badge = $("input[name='frm_view_badge']").bootstrapSwitch('state');
                     } else {
-                        uri = _config_api_base_url + '/api/transmit/menu';
+                        uri = _config_api_base_url + '/prefferences/menu/insert';
                         module_id = parseInt($('input[name="frm_add_edit_module_id"]').val());
                         parent_id = parseInt($('input[name="frm_add_edit_parent_id"]').val());
                         parent_level = parseInt($('input[name="frm_add_edit_level"]').val());
@@ -517,6 +520,7 @@
                     }
                     var formdata = {
                         token: _token,
+                        id: id,
                         module_id: module_id,
                         parent_id: parent_id,
                         parent_level: parent_level,
@@ -533,7 +537,7 @@
                     };
                     if (id) {
                         token: _token,
-                                formdata.id = id;
+                        formdata.id = id;
                     }
                     console.log(formdata);
                     return false;
@@ -544,6 +548,7 @@
                         window.location.href = _config_api_base_url + '/prefferences/menu/view';
                     }
                 });
+
             }
         };
     }();

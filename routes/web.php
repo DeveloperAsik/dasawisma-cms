@@ -32,9 +32,9 @@ Route::get('/api-docs', 'Backend\Settings\ApiDocsController@view')->name('api-do
 Route::get('/settings', 'Backend\Settings\SettingsController@list')->name('setting');
 
 Route::get('/prefferences/menu/view', 'Backend\Prefferences\MenuController@view')->name('view-menu');
-Route::post('/prefferences/menu/get-list', 'Backend\Prefferences\MenuController@get_list')->name('get-list-menu');
-Route::post('/prefferences/menu/get-data', 'Backend\Prefferences\MenuController@get_data')->name('get-data-menu');
-Route::put('/prefferences/menu/insert', 'Backend\Prefferences\MenuController@insert')->name('insert-menu');
+Route::get('/prefferences/menu/get-list', 'Backend\Prefferences\MenuController@get_list')->name('get-list-menu');
+Route::get('/prefferences/menu/get-data', 'Backend\Prefferences\MenuController@get_data')->name('get-data-menu');
+Route::post('/prefferences/menu/insert', 'Backend\Prefferences\MenuController@insert')->name('insert-menu');
 Route::post('/prefferences/menu/update', 'Backend\Prefferences\MenuController@update')->name('update-menu');
 Route::post('/prefferences/menu/update-status', 'Backend\Prefferences\MenuController@update_status')->name('update-status-menu');
 Route::post('/prefferences/menu/remove', 'Backend\Prefferences\MenuController@remove')->name('remove-menu');
@@ -42,9 +42,9 @@ Route::delete('/prefferences/menu/delete', 'Backend\Prefferences\MenuController@
 
 //permission
 Route::get('/settings/permission/view', 'Backend\Settings\PermissionController@view')->name('view');
-Route::post('/settings/permission/get-list', 'Backend\Settings\PermissionController@get_list')->name('get-list');
-Route::post('/settings/permission/get-data', 'Backend\Settings\PermissionController@get_data')->name('get-data');
-Route::put('/settings/permission/insert', 'Backend\Settings\PermissionController@insert')->name('insert');
+Route::get('/settings/permission/get-list', 'Backend\Settings\PermissionController@get_list')->name('get-list');
+Route::get('/settings/permission/get-data', 'Backend\Settings\PermissionController@get_data')->name('get-data');
+Route::post('/settings/permission/insert', 'Backend\Settings\PermissionController@insert')->name('insert');
 Route::post('/settings/permission/update', 'Backend\Settings\PermissionController@update')->name('update');
 Route::post('/settings/permission/update-status', 'Backend\Settings\PermissionController@update_status')->name('update_status');
 Route::post('/settings/permission/remove', 'Backend\Settings\PermissionController@remove')->name('remove');
@@ -52,9 +52,9 @@ Route::delete('/settings/permission/delete', 'Backend\Settings\PermissionControl
 
 //country
 Route::get('/location/country/view', 'Backend\Master\CountryController@view')->name('view');
-Route::post('/location/country/get-list', 'Backend\Master\CountryController@get_list')->name('get-list');
-Route::put('/location/country/insert', 'Backend\Master\CountryController@insert')->name('insert');
-Route::post('/location/country/get-data', 'Backend\Master\CountryController@get_data')->name('get-data');
+Route::get('/location/country/get-list', 'Backend\Master\CountryController@get_list')->name('get-list');
+Route::post('/location/country/insert', 'Backend\Master\CountryController@insert')->name('insert');
+Route::get('/location/country/get-data', 'Backend\Master\CountryController@get_data')->name('get-data');
 Route::post('/location/country/update', 'Backend\Master\CountryController@update')->name('update');
 Route::post('/location/country/update-status', 'Backend\Master\CountryController@update_status')->name('update_status');
 Route::post('/location/country/remove', 'Backend\Master\CountryController@remove')->name('remove');
@@ -62,9 +62,9 @@ Route::delete('/location/country/delete', 'Backend\Master\CountryController@dele
 
 //province
 Route::get('/location/province/view', 'Backend\Master\ProvinceController@view')->name('view');
-Route::post('/location/province/get-list', 'Backend\Master\ProvinceController@get_list')->name('get-list');
-Route::post('/location/province/get-data', 'Backend\Master\ProvinceController@get_data')->name('get-data');
-Route::put('/location/province/insert', 'Backend\Master\ProvinceController@insert')->name('insert');
+Route::get('/location/province/get-list', 'Backend\Master\ProvinceController@get_list')->name('get-list');
+Route::get('/location/province/get-data', 'Backend\Master\ProvinceController@get_data')->name('get-data');
+Route::post('/location/province/insert', 'Backend\Master\ProvinceController@insert')->name('insert');
 Route::post('/location/province/update', 'Backend\Master\ProvinceController@update')->name('update');
 Route::post('/location/province/update-status', 'Backend\Master\ProvinceController@update_status')->name('update_status');
 Route::post('/location/province/remove', 'Backend\Master\ProvinceController@remove')->name('remove');
@@ -72,9 +72,9 @@ Route::delete('/location/province/delete', 'Backend\Master\ProvinceController@de
 
 //district
 Route::get('/location/district/view', 'Backend\Master\DistrictController@view')->name('view');
-Route::post('/location/district/get-list', 'Backend\Master\DistrictController@get_list')->name('get-list');
-Route::put('/location/district/insert', 'Backend\Master\DistrictController@insert')->name('insert');
-Route::post('/location/district/get-data', 'Backend\Master\DistrictController@get_data')->name('get-data');
+Route::get('/location/district/get-list', 'Backend\Master\DistrictController@get_list')->name('get-list');
+Route::post('/location/district/insert', 'Backend\Master\DistrictController@insert')->name('insert');
+Route::get('/location/district/get-data', 'Backend\Master\DistrictController@get_data')->name('get-data');
 Route::post('/location/district/update', 'Backend\Master\DistrictController@update')->name('update');
 Route::post('/location/district/update-status', 'Backend\Master\DistrictController@update_status')->name('update_status');
 Route::post('/location/district/remove', 'Backend\Master\DistrictController@remove')->name('remove');
@@ -82,9 +82,9 @@ Route::delete('/location/district/delete', 'Backend\Master\DistrictController@de
 
 //sub-district
 Route::get('/location/sub-district/view', 'Backend\Master\SubDistrictController@view')->name('view');
-Route::post('/location/sub-district/get-list', 'Backend\Master\SubDistrictController@get_list')->name('get-list');
-Route::post('/location/sub-district/get-data', 'Backend\Master\SubDistrictController@get_data')->name('get-data');
-Route::put('/location/sub-district/insert', 'Backend\Master\SubDistrictController@insert')->name('insert');
+Route::get('/location/sub-district/get-list', 'Backend\Master\SubDistrictController@get_list')->name('get-list');
+Route::get('/location/sub-district/get-data', 'Backend\Master\SubDistrictController@get_data')->name('get-data');
+Route::post('/location/sub-district/insert', 'Backend\Master\SubDistrictController@insert')->name('insert');
 Route::post('/location/sub-district/update', 'Backend\Master\SubDistrictController@update')->name('update');
 Route::post('/location/sub-district/update-status', 'Backend\Master\SubDistrictController@update_status')->name('update_status');
 Route::post('/location/sub-district/remove', 'Backend\Master\SubDistrictController@remove')->name('remove');

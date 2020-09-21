@@ -32,7 +32,7 @@ class MenuController extends Controller {
             '/libs/bootstrap/treeview/dist/bootstrap-treeview.min.js'
         );
         $this->load_js($js_files);
-        $data['menu_actions'] = ['view', 'add', 'edit', 'remove', 'delete'];
+        $data['menu_actions'] = ['view', 'add-child'];
         return view($this->_config_path_layout . 'Metronic.index', $data);
     }
 
