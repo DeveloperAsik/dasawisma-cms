@@ -124,3 +124,22 @@ Route::post('/posts/content/update-status', 'Backend\Master\PostController@updat
 Route::post('/posts/content/remove', 'Backend\Master\PostController@remove')->name('remove-posts');
 Route::delete('/posts/content/delete', 'Backend\Master\PostController@delete')->name('delete-posts');
 Route::get('/posts/content/archives', 'Backend\Master\PostController@archives')->name('view-posts-archives');
+
+Route::get('/master/volunteer/view', 'Backend\Master\VolunteerController@view')->name('view-volunteer');
+Route::post('/master/volunteer/get-list', 'Backend\Master\VolunteerController@get_list')->name('get-list-volunteer');
+Route::post('/master/volunteer/get-data', 'Backend\Master\VolunteerController@get_data')->name('get-data-volunteer');
+Route::put('/master/volunteer/insert', 'Backend\Master\VolunteerController@insert')->name('insert-volunteer');
+Route::post('/master/volunteer/update', 'Backend\Master\VolunteerController@update')->name('update-volunteer');
+Route::post('/master/volunteer/update-status', 'Backend\Master\VolunteerController@update_status')->name('update_status-volunteer');
+Route::post('/master/volunteer/remove', 'Backend\Master\VolunteerController@remove')->name('remove-volunteer');
+Route::delete('/master/volunteer/delete', 'Backend\Master\VolunteerController@delete')->name('delete-volunteer');
+
+
+Route::get('/master/property/view', 'Backend\Master\PropertyController@view')->name('view-volunteer');
+Route::post('/master/property/get-list', 'Backend\Master\PropertyController@get_list')->name('get-list-property');
+Route::post('/master/property/get-data', 'Backend\Master\PropertyController@get_data')->name('get-data-property');
+Route::put('/master/property/insert', 'Backend\Master\PropertyController@insert')->name('insert-property');
+Route::post('/master/property/update', 'Backend\Master\PropertyController@update')->name('update-property');
+Route::post('/master/property/update-status', 'Backend\Master\PropertyController@update_status')->name('update_status-property');
+Route::post('/master/property/remove', 'Backend\Master\PropertyController@remove')->name('remove-property');
+Route::delete('/master/property/delete', 'Backend\Master\PropertyController@delete')->name('delete-volunteer');
