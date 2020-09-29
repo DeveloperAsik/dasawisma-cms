@@ -9,7 +9,7 @@
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
     <body class="login">
-        <div id="loading-lottie" ><div id="loading"></div></div>
+        <div id="loading-lottie"></div>
         @include('Apps.Layouts.Metronic.Includes.index_login.logo') 
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
         <div class="menu-toggler sidebar-toggler"></div>

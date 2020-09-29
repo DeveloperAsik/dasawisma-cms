@@ -8,12 +8,13 @@
 
 namespace App\Http\Controllers\Backend\Master;
 
+use App\Http\Controllers\Controller;
 /**
  * Description of SubDistrictController
  *
  * @author root
  */
-class SubDistrictController {
+class SubDistrictController extends Controller {
     //put your code here
         //put your code here
     public function view() {

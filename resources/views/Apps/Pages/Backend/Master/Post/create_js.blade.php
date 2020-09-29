@@ -4,55 +4,55 @@
             //main function to initiate the module
             init: function () {
                 fnToaStr('view js successfully load', 'success', {timeOut: 2000});
-                var table = $('#datatable_ajax').DataTable({
-                    "lengthMenu": [[10, 25, 50], [10, 25, 50]],
-                    "sPaginationType": "bootstrap",
-                    "paging": true,
-                    "pagingType": "full_numbers",
-                    "ordering": false,
-                    "serverSide": true,
-                    "processing": true,
-                    "language": {
-                        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
-                    },
-                    "ajax": {
-                        url: _config_base_url + '/location/country/get-list',
-                        type: 'POST'
-                    },
-                    "columns": [
-                        {"data": "rowcheck"},
-                        {"data": "num"},
-                        {"data": "name"},
-                        {"data": "active"},
-                        {"data": "description"}
-                    ],
-                    "drawCallback": function (master) {
-                        $('.make-switch').bootstrapSwitch();
-                    }
-                });
-
-                $('#datatable_ajax').on('switchChange.bootstrapSwitch', 'input[name="status"]', function (event, state) {
-                    bootbox.confirm("Are you sure?", function (result) {
-                        var id = $(this).attr('data-id');
-                        var formdata = {
-                            id: Base64.encode(id),
-                            active: state
-                        };
-                        $.ajax({
-                            url: _config_base_url + '/location/country/update-status',
-                            method: "POST", //First change type to method here
-                            data: formdata,
-                            success: function (response) {
-                                toastr.success('Successfully ' + response);
-                                return false;
-                            },
-                            error: function () {
-                                toastr.error('Failed ' + response);
-                                return false;
-                            }
-                        });
-                    });
-                });
+                //var table = $('#datatable_ajax').DataTable({
+                //    "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                //    "sPaginationType": "bootstrap",
+                //    "paging": true,
+                //    "pagingType": "full_numbers",
+                //    "ordering": false,
+                //    "serverSide": true,
+                //    "processing": true,
+                //    "language": {
+                //        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+                //    },
+                //    "ajax": {
+                //        url: _config_base_url + '/location/country/get-list',
+                //        type: 'POST'
+                //    },
+                //    "columns": [
+                //        {"data": "rowcheck"},
+                //        {"data": "num"},
+                //        {"data": "name"},
+                //        {"data": "active"},
+                //        {"data": "description"}
+                //    ],
+                //    "drawCallback": function (master) {
+                //        $('.make-switch').bootstrapSwitch();
+                //    }
+                //});
+                //
+                //$('#datatable_ajax').on('switchChange.bootstrapSwitch', 'input[name="status"]', function (event, state) {
+                //    bootbox.confirm("Are you sure?", function (result) {
+                //        var id = $(this).attr('data-id');
+                //        var formdata = {
+                //            id: Base64.encode(id),
+                //            active: state
+                //        };
+                //        $.ajax({
+                //            url: _config_base_url + '/location/country/update-status',
+                //            method: "POST", //First change type to method here
+                //            data: formdata,
+                //            success: function (response) {
+                //                toastr.success('Successfully ' + response);
+                //                return false;
+                //            },
+                //            error: function () {
+                //                toastr.error('Failed ' + response);
+                //                return false;
+                //            }
+                //        });
+                //    });
+                //});
 
                 $('a.btn').on('click', function () {
                     var action = $(this).attr('data-id');

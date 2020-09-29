@@ -71,7 +71,7 @@
                     </li>
                     <!-- BEGIN NOTIFICATION DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                    <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-bell"></i>
                             <span class="badge badge-success">
@@ -178,11 +178,11 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- END NOTIFICATION DROPDOWN -->
+                     END NOTIFICATION DROPDOWN -->
                     <li class="separator hide">
                     </li>
                     <!-- BEGIN INBOX DROPDOWN -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte 
                     <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-envelope-open"></i>
@@ -199,7 +199,7 @@
                                     <li>
                                         <a href="inbox.html?a=view">
                                             <span class="photo">
-                                                <img src="<?php echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+                                                <img src="<?php //echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
                                             </span>
                                             <span class="subject">
                                                 <span class="from">
@@ -213,7 +213,7 @@
                                     <li>
                                         <a href="inbox.html?a=view">
                                             <span class="photo">
-                                                <img src="<?php echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+                                                <img src="<?php //echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
                                             </span>
                                             <span class="subject">
                                                 <span class="from">
@@ -227,7 +227,7 @@
                                     <li>
                                         <a href="inbox.html?a=view">
                                             <span class="photo">
-                                                <img src="<?php echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
+                                                <img src="<?php //echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
                                             </span>
                                             <span class="subject">
                                                 <span class="from">
@@ -241,7 +241,7 @@
                                     <li>
                                         <a href="inbox.html?a=view">
                                             <span class="photo">
-                                                <img src="<?php echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+                                                <img src="<?php //echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
                                             </span>
                                             <span class="subject">
                                                 <span class="from">
@@ -255,7 +255,7 @@
                                     <li>
                                         <a href="inbox.html?a=view">
                                             <span class="photo">
-                                                <img src="<?php echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+                                                <img src="<?php //echo $_path_templates ?>/metronic/assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
                                             </span>
                                             <span class="subject">
                                                 <span class="from">
@@ -269,12 +269,12 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <!-- END INBOX DROPDOWN -->
                     <li class="separator hide">
                     </li>
                     <!-- BEGIN TODO DROPDOWN -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte 
                     <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-calendar"></i>
@@ -368,7 +368,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <!-- END TODO DROPDOWN -->
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
@@ -384,7 +384,7 @@
                                 <a href="extra_profile.html">
                                     <i class="icon-user"></i> My Profile </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="page_calendar.html">
                                     <i class="icon-calendar"></i> My Calendar </a>
                             </li>
@@ -401,7 +401,7 @@
                                 </a>
                             </li>
                             <li class="divider">
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="extra_lock.html">
                                     <i class="icon-lock"></i> Lock Screen </a>

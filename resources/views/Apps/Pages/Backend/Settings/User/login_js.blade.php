@@ -14,12 +14,12 @@
             var res = fnAjaxSend({token: response.responseJSON.data.token}, _config_base_url + '/save-token', 'POST', {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
             if (res.status === 200) {
                 setTimeout(function () {
-                    loadingImg('loading', 'destroy');
+                    loadingImg('destroy');
                     window.location = _config_base_url + '/dashboard';
                 }, 2000);
             } else {
                 setTimeout(function () {
-                    loadingImg('loading', 'destroy');
+                    loadingImg('destroy');
                     window.location = _config_base_url + '/logout';
                 }, 2500);
             }
@@ -66,7 +66,10 @@
                     error.insertAfter(element.closest('.input-icon'));
                 },
                 submitHandler: function (form) {
-                    fnSubmitLogin();
+                    loadingImg('play');
+                    setTimeout(function () {
+                        fnSubmitLogin();
+                    }, 2000);
                 }
             });
         };

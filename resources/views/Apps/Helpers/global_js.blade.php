@@ -84,12 +84,13 @@
         return result;
     };
 
-    var loadingImg = function (el, act, opt) {
+    var loadingImg = function (act, el, opt) {
         if (!el)
-            el = 'img-loading';
+            el = 'loading-lottie';
 
         if (!opt)
             opt = 'circle-loading';
+        
         var animation = bodymovin.loadAnimation({
             container: document.getElementById(el), // Required
             path: _path_json + '/lottie/' + opt + '.json', // Required

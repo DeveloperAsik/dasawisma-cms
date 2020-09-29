@@ -16,7 +16,7 @@ use App\Http\Libraries\Tools_Library;
 use App\Http\Libraries\Auth;
 
 //model
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Model\Tbl_user_tokens;
 use App\Model\Tbl_users;
 use App\Model\Tbl_user_groups;
@@ -143,5 +143,6 @@ class UserController extends Controller {
             return json_encode(array('status' => 201, 'message' => 'failed'));
         }
     }
+    
 
 }

@@ -8,14 +8,14 @@
 
 namespace App\Http\Controllers\Backend\Master;
 
+use App\Http\Controllers\Controller;
 /**
  * Description of DistrictController
  *
  * @author root
  */
-class DistrictController {
+class DistrictController extends Controller {
     //put your code here
-        //put your code here
     public function view() {
         $data['title_for_layout'] = 'welcome';
         $load_js = array(

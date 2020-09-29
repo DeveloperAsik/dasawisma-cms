@@ -382,6 +382,15 @@
             return false;
         }
     };
+    
+    var get_icon_list = function(){
+         var uri = _config_base_url + '/prefferences/menu/get-icons';
+        var type = 'GET';
+        var response = fnAjaxSend({}, uri, type, {'X-CSRF-TOKEN': $('meta[name="csrf-token"]'}, false);
+        if(response){
+            return response;
+        }
+    };
 
     var Index = function () {
         return {
@@ -451,6 +460,8 @@
 
                 $('form#frm_add_edit').on('submit', function (e) {
                     e.preventDefault();
+                    loadingImg('play');
+
                     var id = $('input[name="frm_add_edit_id"]').val();
                     var type = 'POST';
                     var uri = '';
@@ -467,8 +478,10 @@
                     var _cms = '';
                     var _open = '';
                     var _badge = '';
+                    var str_key = 'data did not process';
                     if (id) {
-                        uri = _config_api_base_url + '/prefferences/menu/update';
+                        str_key = 'update';
+                        uri = _config_base_url + '/prefferences/menu/update';
                         module_id = parseInt($('input[name="frm_add_edit_module_id"]').val());
                         parent_id = parseInt($('input[name="frm_add_edit_parent_id"]').val());
                         parent_level = parseInt($('input[name="frm_add_edit_level"]').val());
@@ -483,7 +496,8 @@
                         _open = $("input[name='frm_view_open']").bootstrapSwitch('state');
                         _badge = $("input[name='frm_view_badge']").bootstrapSwitch('state');
                     } else {
-                        uri = _config_api_base_url + '/prefferences/menu/insert';
+                        str_key = 'insert';
+                        uri = _config_base_url + '/prefferences/menu/insert';
                         module_id = parseInt($('input[name="frm_add_edit_module_id"]').val());
                         parent_id = parseInt($('input[name="frm_add_edit_parent_id"]').val());
                         parent_level = parseInt($('input[name="frm_add_edit_level"]').val());
@@ -519,7 +533,6 @@
                         badge = 1;
                     }
                     var formdata = {
-                        token: _token,
                         id: id,
                         module_id: module_id,
                         parent_id: parent_id,
@@ -535,17 +548,18 @@
                         open: open,
                         badge: badge
                     };
-                    if (id) {
-                        token: _token,
-                        formdata.id = id;
-                    }
-                    console.log(formdata);
-                    return false;
-                    var response = fnAjaxSend(formdata, uri, type, {}, false);
-                    var data = response.responseJSON.data;
-                    if (data.status === 200) {
+
+                    var response = fnAjaxSend(formdata, uri, type, {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
+                    if (response.responseJSON.status === 200) {
                         $('div#modal_add_edit').modal('hide');
-                        window.location.href = _config_api_base_url + '/prefferences/menu/view';
+                        fnToaStr('successfully ' + str_key + ' data', 'success', {timeOut: 2000});
+                        setTimeout(function () {
+                            loadingImg('destroy');
+                            window.location.href = _config_base_url + '/prefferences/menu/view';
+                        }, 2500);
+                    } else {
+                        fnToaStr('something happern ' + str_key, 'success', {timeOut: 2000});
+                        loadingImg('destroy');
                     }
                 });
 
