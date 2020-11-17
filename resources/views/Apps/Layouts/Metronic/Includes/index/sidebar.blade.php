@@ -8,7 +8,7 @@
                 </a>
             </li>
             <?php if (isset($_menu_backend) && !empty($_menu_backend)): ?>
-                <?php foreach ($_menu_backend AS $keyword => $values): ?>
+                <?php foreach ($_menu_backend AS $keyword => $values):  ?>
                     <li class="<?php echo ($values['is_open'] == 1) ? 'open' : ''; ?>">
                         <a href="<?php echo $_config_base_url . '/' . $values['href']; ?>">
                             <i class="<?php echo ($values['icon']) ? $values['icon'] : '' ?>"></i>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', 'Backend\Settings\UserController@login')->name('backend');
 
-Route::post('/save-token', 'Backend\Settings\UserController@save_token')->name('save-token');
+Route::post('/auth', 'Backend\Settings\UserController@auth')->name('auth');
 
 Route::get('/dashboard', 'Backend\Settings\UserController@dashboard')->name('dashboard');
 /*
@@ -55,7 +55,7 @@ Route::delete('/settings/permission/delete', 'Backend\Settings\PermissionControl
 
 //country
 Route::get('/location/country/view', 'Backend\Master\CountryController@view')->name('view-country');
-Route::get('/location/country/get-list', 'Backend\Master\CountryController@get_list')->name('get-list-country');
+Route::post('/location/country/get-list', 'Backend\Master\CountryController@get_list')->name('get-list-country');
 Route::post('/location/country/insert', 'Backend\Master\CountryController@insert')->name('insert-country');
 Route::get('/location/country/get-data', 'Backend\Master\CountryController@get_data')->name('get-data-country');
 Route::post('/location/country/update', 'Backend\Master\CountryController@update')->name('update-country');

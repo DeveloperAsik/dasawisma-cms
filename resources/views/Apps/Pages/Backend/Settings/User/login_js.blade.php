@@ -1,28 +1,24 @@
 <script>
     var fnSubmitLogin = function () {
         loadingImg('loading', 'play');
-        var uri = _config_api_base_url + '/generate-token-user';
-        var type = 'GET';
+        var uri = _config_base_url + '/auth';
+        var type = 'POST';
         var formdata = {
             deviceid: _app_uuid,
             username: $('input[name="username"]').val(),
             password: Base64.encode($('input[name="password"]').val())
         };
-        var response = fnAjaxSend(formdata, uri, type, {}, false);
+        var response = fnAjaxSend(formdata, uri, type, {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
         if (response.responseJSON.status === 200) {
-            fnToaStr(response.responseJSON.message, 'success', {timeOut: 2000});
-            var res = fnAjaxSend({token: response.responseJSON.data.token}, _config_base_url + '/save-token', 'POST', {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}, false);
-            if (res.status === 200) {
-                setTimeout(function () {
-                    loadingImg('destroy');
-                    window.location = _config_base_url + '/dashboard';
-                }, 2000);
-            } else {
-                setTimeout(function () {
-                    loadingImg('destroy');
-                    window.location = _config_base_url + '/logout';
-                }, 2500);
-            }
+            setTimeout(function () {
+                loadingImg('destroy');
+                window.location = _config_base_url + '/dashboard';
+            }, 2000);
+        } else {
+            setTimeout(function () {
+                loadingImg('destroy');
+                window.location = _config_base_url + '/logout';
+            }, 2500);
         }
         return false;
     };

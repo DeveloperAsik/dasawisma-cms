@@ -6,29 +6,30 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
-use App\Http\Libraries\Session_Library AS SesLibrary;
 use App\Http\Libraries\HttpRequest_Library AS HttpReqLibrary;
 use App\Http\Libraries\Tools_Library AS ToolsLibrary;
 //load table model
-use App\Model\Tbl_menus;
-use App\Model\Tbl_modules;
+use App\Traits\Api;
 use View;
 
 class Controller extends BaseController {
 
     use AuthorizesRequests,
         DispatchesJobs,
-        ValidatesRequests;
+        ValidatesRequests,
+        Api;
 
-    public function __construct() {
-        $this->initVar();
-        $this->initAuth();
-        $this->initBackendSidemenu();
+    public function __construct(Request $request) {
+        $this->initVar($request);
+        $this->initAuth($request);
+        $this->initBackendSidemenu($request);
     }
 
-    public function initVar() {
+    public function initVar($request) {
         $conf = VLibrary::init();
         if ($conf['PATH']) {
             foreach ($conf['PATH'] AS $key => $values) {
@@ -59,37 +60,91 @@ class Controller extends BaseController {
                 $this->{$key} = $values;
             }
         }
+
+        if (!$request->session()->get('_uuid') || $request->session()->get('_uuid') == null) {
+            $request->session()->put('_uuid', uniqid());
+        }
     }
 
-    public function initAuth() {
-        if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
-            SesLibrary::_set('_uuid', uniqid());
-        }
-        if (SesLibrary::_get('_is_logged_in')) {
-            View::share('_is_logged_in', SesLibrary::_get('_is_logged_in'));
-        }
-
+    public function initAuth($request) {
         $route_exist = \Request::route()->getName();
-        if (SesLibrary::_get('_token')) {
-            View::share('_token', SesLibrary::_get('_token'));
-            $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/is-logged-in';
-            $data = array('token' => SesLibrary::_get('_token'));
-            $method = 'GET';
-            $is_logged_in = HttpReqLibrary::run($uri, $data, $method);
-            if ($is_logged_in->status == 200 && $is_logged_in->data->logged_in == false) {
-                if ($route_exist != 'login') {
-                    ToolsLibrary::setRedirect($this->_config_base_url . '/login');
-                }
-            } else {
-                if ($route_exist == 'login' || $route_exist == 'backend') {
-                    ToolsLibrary::setRedirect($this->_config_base_url . '/dashboard');
-                }
-            }
-        } else {
-            if ($route_exist != 'login') {
-                ToolsLibrary::setRedirect($this->_config_base_url . '/login');
-            }
+        if (!$request->session()->get('_uuid') || $request->session()->get('_uuid') == null) {
+            $request->session()->put('_uuid', uniqid());
         }
+        //if ($request->session()->get('_token_access')) {
+        //    View::share('_token_access', $request->session()->get('_token_access'));
+        //}
+        //$param = [
+        //    'uri' => config('app.base_api_uri') . '/is-logged-in',
+        //    'method' => 'GET',
+        //    'header' => ['token' => $request->session()->get('_token_access')]
+        //];
+        //$is_logged_in = $this->__init_request_api($param);
+        //$redirect = false;
+        //if ($is_logged_in->status == 200 && $is_logged_in->data->logged_in == true) {
+        //    $request->session()->put('_is_logged_in', $is_logged_in->data->logged_in);
+        //    View::share('_is_logged_in', $is_logged_in->data->logged_in);
+        //    if ($request->session()->get('_token_access')) {
+        //        View::share('_token_access', $request->session()->get('_token_access'));
+        //        $uri = VLibrary::init()['PATH']['_config_api_base_url'] . '/is-logged-in';
+        //        $data = array('token' => $request->session()->get('_token_access'));
+        //        $method = 'GET';
+        //        $is_logged_in = HttpReqLibrary::run($uri, $data, $method);
+        //        if ($is_logged_in->status == 200 && $is_logged_in->data->logged_in == false) {
+        //            if ($route_exist != 'login') {
+        //                $redirect = $this->_config_base_url . '/login';
+        //            }
+        //        } else {
+        //            if ($route_exist == 'login' || $route_exist == 'backend') {
+        //                $redirect = $this->_config_base_url . '/dashboard';
+        //            }
+        //        }
+        //    } else {
+        //        if ($route_exist != 'login') {
+        //            $redirect = $this->_config_base_url . '/login';
+        //        }
+        //    }
+        //} else {
+        //    if ($route_exist != 'login') {
+        //        $redirect = $this->_config_base_url . '/login';
+        //    }
+        //}
+        //if ($redirect != false) {
+        //    ToolsLibrary::setRedirect($redirect);
+        //}
+    }
+
+    public function initBackendSidemenu($request) {
+        if ($request->session()->get('_is_logged_in')) {
+            $data = [
+                'module_id' => 1,
+                'logged' => 1,
+                'module_name' => 'Backend'
+            ];
+            $menu = $this->initMenu($data, 'array');
+            $result = $menu[0]['nodes'];
+        } else {
+            $result[] = array(
+                'text' => 'root',
+                'icon' => 'fa-contao',
+                'href' => '#',
+                'level' => '0',
+                'id' => '0',
+                'rank' => '0',
+                'parent_id' => 0,
+                'parent_name' => '',
+                'module_id' => 0,
+                'module_name' => 'root',
+                'is_active' => 1,
+                'is_logged_in' => 1,
+                'is_cms' => 1,
+                'is_open' => 1,
+                'is_badge' => 1,
+                'desc' => '-',
+                'nodes' => null
+            );
+        }
+        View::share('_menu_backend', $result);
     }
 
     public function initMenu($post = array(), $return = 'json') {
@@ -98,24 +153,24 @@ class Controller extends BaseController {
             $logged = $post['logged'];
             $name = $post['module_name'];
             $res = array();
-            $Tbl_menus = new Tbl_menus();
-            $menu_1 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= 1', 'a.module_id' => '= "' . $id . '"', 'a.is_logged_in' => '= "' . $logged . '"'))));
+            $table_menu = 'tbl_menus AS a';
+            $menu_1 = DB::table($table_menu)->where([['a.is_active', 1], ['a.is_cms', 1], ['a.level', 1], ['a.module_id', $id], ['a.is_logged_in', $logged]])->orderBy('a.rank', 'asc')->get();
             $arr1 = array();
             if (isset($menu_1) && !empty($menu_1)) {
                 foreach ($menu_1 AS $keyword => $values) {
-                    $menu_2 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "2"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values->id . '"'))));
+                    $menu_2 = DB::table($table_menu)->where([['a.is_active', 1], ['a.is_cms', 1], ['a.level', 2], ['a.module_id', $id], ['a.parent_id', $values->id]])->orderBy('a.rank', 'asc')->get();
                     $arr2 = array();
                     if (isset($menu_2) && !empty($menu_2)) {
                         foreach ($menu_2 AS $keyword2 => $values2) {
-                            $menu_3 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "3"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values2->id . '"'))));
+                            $menu_3 = DB::table($table_menu)->where([['a.is_active', 1], ['a.is_cms', 1], ['a.level', 3], ['a.module_id', $id], ['a.is_logged_in', $logged], ['a.parent_id', $values2->id]])->orderBy('a.rank', 'asc')->get();
                             $arr3 = array();
                             if (isset($menu_3) && !empty($menu_3)) {
                                 foreach ($menu_3 AS $keyword3 => $values3) {
-                                    $menu_4 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "4"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values3->id . '"'))));
+                                    $menu_4 = DB::table($table_menu)->where([['a.is_active', 1], ['a.is_cms', 1], ['a.level', 4], ['a.module_id', $id], ['a.is_logged_in', $logged], ['a.parent_id', $values3->id]])->orderBy('a.rank', 'asc')->get();
                                     $arr4 = array();
                                     if (isset($menu_4) && !empty($menu_4)) {
                                         foreach ($menu_4 AS $keyword4 => $values4) {
-                                            $menu_5 = $Tbl_menus->find('all', array('fields' => 'all', 'table_name' => 'tbl_menus', 'order' => array('key' => 'rank', 'type' => 'ASC'), 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.level' => '= "5"', 'a.module_id' => '= "' . $id . '"', 'a.parent_id' => '= "' . $values4->id . '"'))));
+                                            $menu_5 = DB::table($table_menu)->where([['a.is_active', 1], ['a.is_cms', 1], ['a.level', 5], ['a.module_id', $id], ['a.is_logged_in', $logged], ['a.parent_id', $values4->id]])->orderBy('a.rank', 'asc')->get();
                                             $arr5 = array();
                                             if (isset($menu_5) && !empty($menu_5)) {
                                                 foreach ($menu_5 AS $keyword5 => $values5) {
@@ -263,21 +318,10 @@ class Controller extends BaseController {
         }
     }
 
-    public function initBackendSidemenu() {
-        $data = [
-            'module_id' => 1,
-            'logged' => 1,
-            'module_name' => 'Backend'
-        ];
-        $menu = $this->initMenu($data, 'array');
-        View::share('_menu_backend', $menu[0]['nodes']);
-    }
-
     protected function get_parent_menu($id = null) {
         $res = array();
         if ($id != null) {
-            $Tbl_menus = new Tbl_menus();
-            $res = $Tbl_menus->find('first', array('fields' => 'all', 'table_name' => 'tbl_menus', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.is_cms' => '= 1', 'a.id' => '= "' . $id . '"'))));
+            $res = DB::table('tbl_menus AS a')->where([['a.is_active', 1], ['a.is_cms', 1], ['a.id', $id]])->orderBy('a.rank', 'asc')->first();
         }
         return $res;
     }
@@ -285,8 +329,7 @@ class Controller extends BaseController {
     protected function get_module($id = null) {
         $res = array();
         if ($id != null) {
-            $Tbl_modules = new Tbl_modules();
-            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= 1', 'a.id' => '= ' . $id))));
+            $res = DB::table('tbl_modules AS a')->where([['a.is_active', 1], ['a.id', $id]])->orderBy('a.id', 'asc')->first();
         }
         return $res;
     }

@@ -1,19 +1,36 @@
 <?php
 
+$base_api_url = '';
+$base_static_url = '';
+switch (env('APP_ENV')) {
+    case 'local' :
+        $base_api_url = env('APP_API_URI_LOCAL');
+        $base_static_url = env('APP_STATIC_URI_LOCAL');;
+        break;
+    case 'rc' :
+        $base_api_url = env('APP_API_URI_RC');
+        $base_static_url = env('APP_STATIC_URI_LOCAL');;
+        break;
+    case 'prod' :
+        $base_api_url = env('APP_API_URI_PROD');
+        $base_static_url = env('APP_STATIC_URI_LOCAL');;
+        break;
+}
 return [
-
     /*
-    |--------------------------------------------------------------------------
-    | Application Name
-    |--------------------------------------------------------------------------
-    |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
-    |
-    */
+      |--------------------------------------------------------------------------
+      | Application Name
+      |--------------------------------------------------------------------------
+      |
+      | This value is the name of your application. This value is used when the
+      | framework needs to place the application's name in a notification or
+      | any other location as required by the application or its packages.
+      |
+     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'base_api_uri' => $base_api_url,
+    'base_static_uri' => $base_static_url,
 
     /*
     |--------------------------------------------------------------------------
